@@ -6,11 +6,23 @@ const db = require('../data/db-config.js');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-
+    try {
+        const { id } = req.params
+        const result = await knex('posts')
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ msg: 'problem with db', error: err })
+    }
 });
 
-router.get('/:id', (req, res) => {
-
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await knex('posts').where({ id })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ msg: 'problem with db', error: err })
+    }
 });
 
 router.post('/', (req, res) => {
